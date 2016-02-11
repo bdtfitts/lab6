@@ -12,6 +12,7 @@ function initializePage() {
 	$('.project a').click(addProjectDetails);
 
 	$('#colorBtn').click(randomizeColors);
+    $('#playBtn').click(playSong);
 }
 
 /*
@@ -37,6 +38,11 @@ function addProjectDetails(e) {
 function randomizeColors(e) {
     var randomPalette = $.get("/palette", applyRetrievedPalette);
 }
+
+function playSong(e) {
+    $(this).html("Grabbing URL...");
+    $.get("https://api.spotify.com/v1/tracks/0eGsygTp906u18L0Oimnem", showPreview);
+}
 function applyRetrievedPalette(result) {
     console.log(result);
     var colors = result["colors"]["hex"];
@@ -51,4 +57,11 @@ function displayRetrievedDetails(result) {
     var id = result["id"];
     var details = "<img src='" + result["image"] + "' class='detailsImage'/><p>" + result["title"] + "</p><p><small>" + result["date"] + "</small></p>" + result["summary"];
     $(".project[id='project"+id+"'] div.details").html(details);
+}
+function showPreview(result) {
+    console.log(result);
+    var preview = result["preview_url"];
+    var name = result["name"];
+    $("#spotifyplayer").html("<img src='"+result["album"]["images"][1]["url"]+"' style='margin-top:10px'/><p>" + name + "</p><a href='" + preview + "'>Preview song.</a>");
+    $("#playBtn").html("Play!");
 }
