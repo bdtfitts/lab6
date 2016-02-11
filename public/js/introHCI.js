@@ -63,5 +63,5 @@ function showPreview(result) {
     var preview = result["preview_url"];
     var name = result["name"];
     $("#spotifyplayer").html("<img src='"+result["album"]["images"][1]["url"]+"' style='margin-top:10px'/><p>" + name + "</p><a href='" + preview + "'>Preview song.</a>");
-    $("#playBtn").html("Play!");
+    $("#playBtn").html("Grab another song!");
 }
